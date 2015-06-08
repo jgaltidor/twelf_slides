@@ -509,6 +509,10 @@ dependent type.
 
 \pause
 \item \texttt{(of/nat z)} $=$ \emph{term} of type \texttt{(of (enat z) num)}.
+  \begin{itemize}
+  \item Example legal assignment: \\
+        \texttt{y : (of (enat z) num) = (of/nat z).}
+  \end{itemize}
 
 \pause
 \item \texttt{(of/nat z)} is a \emph{derivation/term} of judgment
@@ -554,7 +558,7 @@ function applications.
 \item \texttt{of/nat: of (enat \cemph{N}) num.}
 \item Parameter \texttt{\cemph{N}} is \emph{implicit}
 in the above signature.
-\item Implicit parameters \emph{cannnot be specified}
+\item Implicit parameters \emph{cannot be specified}
 by programmer in function applications.
 \item \texttt{D : of (enat \cemph{z}) num = of/nat.}
 \item Twelf figures out from the context that
