@@ -435,7 +435,7 @@ Functions that return types (not terms).
 \begin{frame}{Judgments are Dependent Types}
 \begin{itemize}
 
-\item Judgments/Propositions (instances of predicates) represented
+\item Judgments/Propositions (instantiations of predicates) represented
 by dependent types.
 
 \item Judgment $\cemph{z : \texttt{num}}$ represented by type
@@ -755,27 +755,32 @@ of \texttt{E2}.
 \end{frame}
 
 
-\begin{frame}{\texttt{of/let}'s first type}
+\begin{frame}{\texttt{of/let}'s first input type}
 \begin{itemize}
 \item
-Let $f$ be a function of type \\
+Let $f$ be a function of \texttt{of/let}'s first input type: \\
 \cemph{\texttt{(\{x: exp\} of x T1 -> of (E2 x) T2)}}.
 
 \item Reminder of hypothetical judgment:
 $\cemph{\Gamma , x : \tau_1 \vdash e_2 : \tau_2}$.
 
 \pause
-\item $f$ takes in an \texttt{exp} term bound to LF variable \texttt{x}.
-\item $f$ takes in a term \texttt{\cemph{dx}} of type \texttt{(of x T1)}.
-\item $f$ returns a term of type \texttt{(of (E2 x) T2)}.
+\item $f$'s first input is an \texttt{exp} term bound to LF variable \texttt{x}.
+\pause
+\item $f$'s second input is a term \texttt{\cemph{dx}} of type \texttt{(of x T1)}. \\
+\texttt{\cemph{dx}} = proof that $f$'s first input has type \texttt{T1}
+\pause
+\item $f$'s output is a term of type \texttt{(of (E2 x) T2)}: \\
+a proof that \texttt{E2} instantiated with $f$'s first input has type \texttt{T2}
 
 \pause
-\item \texttt{\cemph{dx}} of type \texttt{(of x T1)} can be used in the
-body of $f$ to return a proof/term of type \texttt{(of (E2 x) T2)}.
+\item \texttt{\cemph{dx}} of type \texttt{(of x T1)} can be
+\emph{used in the definition of} $f$
+to return a proof/term of type \texttt{(of (E2 x) T2)}.
 
 \item The ability to use a proof (\texttt{\cemph{dx}}) of type
 \texttt{(of x T1)} to derive a proof of type \texttt{(of (E2 x) T2)}
-simulates extending typing context with $x : \tau_1$.
+simulates the ability to use an assumption $x : \tau_1$ to prove $e_2 : \tau_2$.
 \end{itemize}
 \end{frame}
 
@@ -1364,11 +1369,12 @@ preservation.elf:69.8-69.11 Error:
 
 \begin{frame}{Assuming What Needs To Be Proven}
 \begin{itemize}
-\item Cannot prove case by just assuming conclusion.
+\item Cannot prove theorem by just assuming conclusion
+of theorem holds.
 
 \pause
 \item Also, cannot assume propositions not derived from premises
-in proofs.
+of theorem.
 
 \pause
 \item Such a proof will contain a \emph{non-ground} term.
@@ -1408,13 +1414,27 @@ in proofs.
 \item Proof above just assumes \texttt{\cemph{of E1' num}},
 which is not one of the assumptions for the case.
 
-\item \texttt{\cemph{E1'-num}} is not part of input terms
-in return type.
+\item \texttt{\cemph{E1'-num}} is not an input term
+in the conclusion (third) argument of \texttt{preservation}.
 
 \item \texttt{\cemph{E1'-num}} is not an output term
 derived from ground terms.
 
 \item Twelf reports error for function above.
+\end{itemize}
+\end{frame}
+
+\section{Checking Proofs of Theorems}
+
+\begin{frame}{Checking Entire Proofs of Theorems}
+\begin{itemize}
+\item Twelf checks proofs of theorems by verifying three key aspects:
+	\begin{itemize}
+	\item Type checking -- Proof of correct proposition
+	\item Grounds checking -- Valid assumptions
+	\item Coverage checking -- Proved all cases of theorem
+	\end{itemize}
+\item Next few slides describes Twelf's coverage checking of proofs
 \end{itemize}
 \end{frame}
 
@@ -1531,7 +1551,7 @@ proof of totality by structural induction on typing derivation
 	\begin{itemize}
 	\item Type checking -- Proof of correct proposition
 	\item Grounds checking -- Valid assumptions
-	\item Coverage checking -- Proved all cases
+	\item Coverage checking -- Proved all cases of theorem
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -1541,7 +1561,7 @@ proof of totality by structural induction on typing derivation
 \begin{frame}{Totality Proof Automation}
 \begin{itemize}
 \item
-Ask Twelf to \emph{derive} proof of totality: \\
+Ask Twelf to \emph{derive} proof for all cases of theorem: \\
 \texttt{\cemph{\%prove 3 E-T (preservation E-T \_ \_).}}
 	\begin{itemize}
 	\item by structural induction on typing derivation \texttt{E-T}
