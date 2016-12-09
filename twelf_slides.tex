@@ -504,7 +504,8 @@ dependent type.
 
 \pause
 \item \texttt{(of/nat z) $\neq$ (of (enat z) num)}.
-\item \texttt{of/nat} \emph{returns terms} not types.
+\item Function \texttt{of/nat} \emph{returns terms} not types.
+\item Function \texttt{of} \emph{returns types}.
 
 \pause
 \item \texttt{(of/nat z)} $=$ \emph{term} of type \texttt{(of (enat z) num)}.
@@ -515,7 +516,7 @@ dependent type.
 
 \pause
 \item \texttt{(of/nat z)} is a \emph{derivation/term} of judgment
-$z : \texttt{num}$ represented by type \texttt{of (enat z) num}.
+$z : \texttt{num}$ represented by type \texttt{(of (enat z) num)}.
 \end{itemize}
 \end{frame}
 
@@ -560,8 +561,9 @@ in the above signature.
 \item Implicit parameters \emph{cannot be specified}
 by programmer in function applications.
 \item \texttt{D : of (enat \cemph{z}) num = of/nat.}
-\item Twelf figures out from the context that
-\texttt{\cemph{z}} is the implicit parameter that
+\item Twelf figures out from the context
+(type of left-hand side of assignment)
+that \texttt{\cemph{z}} is the implicit parameter that
 \texttt{of/nat} should be applied to.
 \end{itemize}
 \end{frame}
@@ -761,7 +763,7 @@ of \texttt{E2}.
 Let $f$ be a function of \texttt{of/let}'s first input type: \\
 \cemph{\texttt{(\{x: exp\} of x T1 -> of (E2 x) T2)}}.
 
-\item Reminder of hypothetical judgment:
+\item That type models hypothetical judgment:
 $\cemph{\Gamma , x : \tau_1 \vdash e_2 : \tau_2}$.
 
 \pause
@@ -771,7 +773,8 @@ $\cemph{\Gamma , x : \tau_1 \vdash e_2 : \tau_2}$.
 \texttt{\cemph{dx}} = proof that $f$'s first input has type \texttt{T1}
 \pause
 \item $f$'s output is a term of type \texttt{(of (E2 x) T2)}: \\
-a proof that \texttt{E2} instantiated with $f$'s first input has type \texttt{T2}
+a proof that \texttt{E2} instantiated with \texttt{exp} term
+\texttt{x} has type \texttt{T2}.
 
 \pause
 \item \texttt{\cemph{dx}} of type \texttt{(of x T1)} can be
@@ -807,6 +810,35 @@ of/add :  {E2:exp} {E1:exp}
   of E2 num -> of E1 num -> of (add E1 E2) num.
 \end{verbatim}
 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Solution to Previous Exercise}
+\begin{itemize}
+\item Derive the judgment
+$\cemph{\vdash \texttt{let x be 1 in x + 0} : \code{num}}$
+in Twelf.
+
+\item Twelf encoding of above judgment: \\
+\code{\cemph{of (let (enat (s z)) ([x:exp] add x (enat z))) num}.}
+
+\item Recall important signatures (without implicit parameters):
+
+\begin{verbatim}
+of/let : ({x:exp} of x T1 -> of (E2 x) T2) ->
+  of E1 T1 -> of (let E1 ([x:exp] E2 x)) T2.
+of/nat : of (enat N) num.
+of/add :
+  of E2 num -> of E1 num -> of (add E1 E2) num.
+\end{verbatim}
+
+\item Twelf proof of above judgment:
+
+\begin{alltt}
+of/let
+  ([x:exp] [\cemph{dx:of x num}] of/add (of/nat z) \cemph{dx}).
+  (of/nat (s z))
+\end{alltt}
 \end{itemize}
 \end{frame}
 
@@ -1093,14 +1125,19 @@ syntax-directed predicates.
 
 \begin{frame}[containsverbatim]{Checking Syntax-Directed}
 \begin{itemize}
-\item \texttt{\cemph{\%unique}} checks if outputs are
-uniquely determined by inputs.
-\item \texttt{\cemph{\%unique}} check can also ensure rules are syntax-directed.
+\item Check that rules of relation/type family
+(e.g. \texttt{subtype}) are syntax-directed by passing relation
+to \texttt{\cemph{\%unique}} declaration.
+
+\item \texttt{\cemph{\%unique}} checks if output arguments
+of relation are uniquely determined by input arguments.
+
+\item \texttt{\cemph{\%unique}} also checks if two rules overlap
+or can derive the same judgment.
+
 \end{itemize}
 \begin{alltt}
 subtype : typ -> typ -> type.
-\cemph{\%mode subtype +T1 -T2.}
-subtype/int/rea : subtype int real.
 subtype/rea/num : subtype real number.
 subtype/num/num : subtype number number.
 subtype/trans:
