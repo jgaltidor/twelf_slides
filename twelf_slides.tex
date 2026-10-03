@@ -25,7 +25,7 @@
 \title[Twelf Tutorial\hspace{2em}\insertframenumber/
 \inserttotalframenumber]{Twelf Tutorial}
 
-\subtitle{Twelf Encoding of Minilang}
+\subtitle{Twelf Encoding of MiniLang}
 
 \author[John Altidor]{\textbf{John Altidor}}
 \date{}
@@ -38,7 +38,7 @@
 
 \begin{frame}{Motivation}
 \begin{itemize}
-\item Proving language properties are important.
+\item Proving language properties is important.
 	\begin{itemize}
   \item Rule out certain errors (e.g. assuming
   wrong number of bytes for an object).
@@ -60,7 +60,9 @@ to validate.
 \begin{frame}{Typical Proof Structure}
 \begin{itemize}
 \item Example taken from type soundness proof of TameFJ
-calculus.
+calculus \\
+{\scriptsize (Cameron, Drossopoulou, and Ernst,
+\textit{A Model for Java with Wildcards}, ECOOP 2008).}
 \end{itemize}
 \begin{center}
 \includegraphics[width=\textwidth,keepaspectratio]{tamefj_lemma.png}
@@ -114,7 +116,7 @@ course slides)
 
 \item Alternatives: Coq, Isabelle, Agda, etc.
 
-\item Presenting Example Twelf Encoding of Minilang.
+\item Presenting Example Twelf Encoding of MiniLang.
 \end{itemize}
 \end{frame}
 
@@ -158,19 +160,20 @@ of it.
 
 \section{Introduction to Twelf}
 
-\begin{frame}{Twelf Live Server}
+\begin{frame}{Running Twelf}
 \begin{itemize}
 \item Lecture will involve in-class exercises.
-\item Can try Twelf without installation.
-\item Twelf Live Server:
+\item Download Twelf:
 \end{itemize}
 \begin{center}
 \begin{Large}
-\cemph{\url{http://twelf.org/live/}}
+\cemph{\url{https://twelf.org/download/}}
 \end{Large}
 \end{center}
 \begin{itemize}
-\item Links to starter code of examples will be provided.
+\item Code of the examples, with a Docker image for running
+Twelf without installing it: \\
+\url{https://github.com/jgaltidor/twelf_tutorial}
 \end{itemize}
 \end{frame}
 
@@ -189,18 +192,19 @@ Three \emph{levels} of objects in Twelf:
 (Twelf syntax: ``\code{someType : someKind}'')
 \item Each term is of a certain type. \\
 (Twelf syntax: ``\code{someTerm : someType}'')
-\item Twelf overloads languages constructs with same syntax. \\
+\item Twelf overloads language constructs with same syntax. \\
 (elegant but confusing too)
 
 \pause
 \item Contrived examples:
   \begin{itemize}
   \item Term \code{[1, 2, 3]} is of type \code{ArrayInt}.
-  \item Type \code{ArrayInt} is of kind \code{Array}.
+  \item Type \code{ArrayInt} is of kind \code{\cemph{type}}.
   \end{itemize}
 
 \pause
-\item The kind \code{\cemph{type}} is a pre-defined kind in Twelf.
+\item The kind \code{\cemph{type}} is a pre-defined kind in Twelf: \\
+the kind of ordinary types.
 \end{itemize}
 \end{frame}
 
@@ -275,11 +279,11 @@ is also a kind.
 \end{itemize}
 \end{frame}
 
-\section{Minilang Syntax}
+\section{MiniLang Syntax}
 
-\begin{frame}{Minilang Syntax in Twelf}
+\begin{frame}{MiniLang Syntax in Twelf}
 \begin{itemize}
-\item The object language is Minilang (the object of study).
+\item The object language is MiniLang (the object of study).
 \item Syntactic categories encoded w/ object types
 (defined types).
   \begin{itemize}
@@ -322,7 +326,7 @@ syntactic categories.
 \pause
 \item ASTs in \emph{Higher-Order Abstract Syntax (HOAS)}:
 \item Each $t_i$ in $o(t_1, t_2, \ldots, t_n)$ has form:
-\[ \cemph{x_1, x_2, \ldots x_k.t} \]
+\[ \cemph{x_1, x_2, \ldots, x_k.t} \]
 \item $t$ is a FO-AST.
 \item Each $x_j$ is a variable bound in $t$.
 \item $k \geq 0$; if $k = 0$, then no variable is declared.
@@ -378,7 +382,7 @@ syntactic categories.
 \begin{center}
 \begin{tabular}{l|l}
 \textit{Concrete Syntax} & \textit{Twelf HOAS} \\ \hline
-\code{let x = $\underbrace{\code{1 + 2}}_{e_1}$ in
+\code{let x be $\underbrace{\code{1 + 2}}_{e_1}$ in
                 $\underbrace{\code{x + 3}}_{e_2}$} &
   \code{let $\underbrace{\code{(add 1 2)}}_{e_1}$
     $\underbrace{\cemph{\code{([x:exp] add x 3)}}}_{x.e_2}$}
@@ -386,7 +390,7 @@ syntactic categories.
 \end{center}
 
 \pause
-\item No need to define object (Minilang) variables.
+\item No need to define object (MiniLang) variables.
 \item \emph{LF variables} remove need for object variables.
 \item No need to define substitution (nor requisite theorems)
 as well.
@@ -836,8 +840,8 @@ of/add :
 
 \begin{alltt}
 of/let
-  ([x:exp] [\cemph{dx:of x num}] of/add (of/nat z) \cemph{dx}).
-  (of/nat (s z))
+  ([x:exp] [\cemph{dx:of x num}] of/add of/nat \cemph{dx})
+  of/nat
 \end{alltt}
 \end{itemize}
 \end{frame}
@@ -864,7 +868,7 @@ using Twelf's logic programming engine
 
 \pause
 \item
-Not all relations required modes.
+Not all relations require modes.
 
 \item
 Modes are necessary for \emph{specifying theorems}.
@@ -1059,7 +1063,7 @@ of the \texttt{of} relation.
 \begin{itemize}
 \item Decidable Predicate Definition or Algorithmic Definition:
 Definition of predicate that gives an \emph{algorithm} for
-deciding predicate thats halts on all inputs within a
+deciding predicate that halts on all inputs within a
 \emph{finite} number of steps.
 \item Constructive Logic Requirement: \\
 Proposition is true \emph{iff} there exists a proof of it.
@@ -1113,9 +1117,9 @@ predicate has exactly one unique derivation.
 \texttt{\cemph{+(5; 3) : num}}.
 \[
 \ttinfer[of/add]{+(5; 3): num}
- {\ttinfer[of/num]{5 : num}{ }
+ {\ttinfer[of/nat]{5 : num}{ }
 	&
-	\ttinfer[of/num]{3 : num}{ }
+	\ttinfer[of/nat]{3 : num}{ }
  }
 \]
 \item No need for exhaustive proof search with
@@ -1288,7 +1292,7 @@ Case: (\texttt{T.4}, \texttt{D.1})
 
 We assume preservation holds for subexpressions.
 Hence, by the \emph{inductive hypothesis},
-\texttt{$e_1$: num} and $e_1 \stepto e'_1$ implies
+\texttt{$e_1$: num} and $e_1 \stepto e'_1$ imply
 \texttt{$e'_1$: num}.
 Rule \texttt{T.4} gives us:
 
@@ -1308,12 +1312,12 @@ of/add :
 - :
 \{E1-num  : \cemph{of E1 num} \}
 \{E2-num  : \cemph{of E2 num} \}
-\{E1=>E1' : \cemph{step E1 E1'} \}
+\{E1~>E1' : \cemph{step E1 E1'} \}
 \{E1'-num : \cemph{of E1' num} \}
-preservation E1-num E1=>E1' E1'-num ->
+preservation E1-num E1~>E1' E1'-num ->
  preservation
   ((of/add E2-num E1-num) : \cemph{(of (add E1 E2) num)})
-  ((step/add1 E1=>E1') :
+  ((step/add1 E1~>E1') :
       \cemph{(step (add E1 E2) (add E1' E2)))}
   ((of/add E2-num E1'-num) : \cemph{(of (add E1' E2) num)}).
 \end{alltt}
@@ -1324,9 +1328,9 @@ preservation E1-num E1=>E1' E1'-num ->
 \begin{verbatim}
 - : preservation
       (of/add E2-num E1-num)
-      (step/add1 E1=>E1')
+      (step/add1 E1~>E1')
       (of/add E2-num E1'-num)
-        <- preservation E1-num E1=>E1' E1'-num.
+        <- preservation E1-num E1~>E1' E1'-num.
 \end{verbatim}
 
 \begin{itemize}
@@ -1341,9 +1345,9 @@ preservation E1-num E1=>E1' E1'-num ->
 \begin{alltt}
 - : preservation
       (of/add E2-num E1-num)
-      (step/add1 E1=>E1')
+      (step/add1 E1~>E1')
       (of/add E2-num \cemph{E1'-num})
-        \cemph{<- preservation E1-num E1=>E1' E1'-num}.
+        \cemph{<- preservation E1-num E1~>E1' E1'-num}.
 \end{alltt}
 
 \begin{itemize}
@@ -1370,7 +1374,7 @@ covered all cases.
 proof of totality by structural induction on typing derivation
 \texttt{E-T}.
 
-\item Details of \texttt{\cemph{\%world}} declaration later.
+\item Details of \texttt{\cemph{\%worlds}} declaration later.
 \end{itemize}
 \end{frame}
 
@@ -1383,7 +1387,7 @@ will fail.
 \end{itemize}
 
 \begin{alltt}
-preservation.elf:69.8-69.11 Error: 
+preservation.elf:98.8-98.11 Error: 
 \cemph{Coverage error} --- missing cases:
 \{E1:exp\} \{E2:exp\} \{E3:exp\}
 \{O1:\cemph{of (add E1 E2) num}\} \{S1:\cemph{step E1 E3}\}
@@ -1395,7 +1399,7 @@ preservation.elf:69.8-69.11 Error:
 \item Forgot the case where we could derive:
   \begin{itemize}
   \item \texttt{(of (add E1 E2) num)}
-  \item \texttt{(step (add E1 E2) (add E3 E2)))} 
+  \item \texttt{(step (add E1 E2) (add E3 E2))}
   \end{itemize}
 \item Need to construct proof of \texttt{(of (add E3 E2) num)}.
 \end{itemize}
@@ -1426,11 +1430,11 @@ of theorem.
 \begin{alltt}
 - : \{E1-num  : of E1 num\}
     \{E2-num  : of E2 num\}
-    \{E1=>E1' : step E1 E1'\}
+    \{E1~>E1' : step E1 E1'\}
     \{\cemph{E1'-num : of E1' num}\}
-    preservation E1-num E1=>E1' \cemph{E1'-num}
+    preservation E1-num E1~>E1' \cemph{E1'-num}
       -> preservation (of/add E2-num E1-num)
-                      (step/add1 E1=>E1')
+                      (step/add1 E1~>E1')
                       (of/add E2-num E1'-num).
 \end{alltt}
 \end{frame}
@@ -1440,10 +1444,10 @@ of theorem.
 \begin{alltt}
 - : \{E1-num  : of E1 num \}
     \{E2-num  : of E2 num \}
-    \{E1=>E1' : step E1 E1' \}
+    \{E1~>E1' : step E1 E1' \}
     \{\cemph{E1'-num : of E1' num} \}
     preservation (of/add E2-num E1-num)
-                 (step/add1 E1=>E1')
+                 (step/add1 E1~>E1')
                  (of/add E2-num \cemph{E1'-num}).
 \end{alltt}
 
@@ -1471,7 +1475,7 @@ derived from ground terms.
 	\item Grounds checking -- Valid assumptions
 	\item Coverage checking -- Proved all cases of theorem
 	\end{itemize}
-\item Next few slides describes Twelf's coverage checking of proofs
+\item Next few slides describe Twelf's coverage checking of proofs
 \end{itemize}
 \end{frame}
 
@@ -1495,7 +1499,7 @@ need to define all possible inputs or \emph{worlds}.
 \pause
 \item No term of type \texttt{nat} containing LF variables.
 \item No such \texttt{nat} of form \texttt{(s \cemph{x})},
-where \texttt{\cemph{x}} of variable of type \texttt{nat}.
+where \texttt{\cemph{x}} is a variable of type \texttt{nat}.
 \end{itemize}
 \end{frame}
 
@@ -1510,7 +1514,7 @@ where \texttt{\cemph{x}} of variable of type \texttt{nat}.
 \pause
 \item Error message: \\
 
-\texttt{syntax.elf:38.15-38.25 Error:} \\
+\texttt{syntax.elf:36.15-36.25 Error:} \\
 \texttt{While checking constant let:} \\
 \texttt{World violation for family exp: \{\_:exp\} </: 1}
 
@@ -1612,7 +1616,7 @@ requires nested case analysis.
 	\begin{itemize}
 	\item Need extra theorems for sub-cases (no case-split construct).
 	\item See Twelf page on \emph{Output Factoring} for more details: \\
-	\url{http://twelf.org/wiki/Output_factoring}
+	\url{https://twelf.org/wiki/output-factoring/}
 	\end{itemize}
 \end{itemize}
 \end{frame}

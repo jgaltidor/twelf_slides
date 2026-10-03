@@ -9,7 +9,7 @@ The slides accompany two other repositories:
 
 [jgaltidor/typetheory_slides](https://github.com/jgaltidor/typetheory_slides) holds the companion slides on type theory.
 
-**Status:** these slides were written in 2013–2016 and predate later corrections to the paper and the Twelf code. Where they differ, the paper is authoritative.
+**Status:** these slides were written in 2013–2016 and corrected in October 2026 to match the paper and the current Twelf code; the Twelf output they quote was checked against current Twelf. Where they differ, the paper is authoritative.
 
 ## Building
 
