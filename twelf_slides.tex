@@ -380,13 +380,14 @@ syntactic categories.
 \item Example HOAS term in Twelf:
 
 \begin{center}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{l|l}
 \textit{Concrete Syntax} & \textit{Twelf HOAS} \\ \hline
 \code{let x be $\underbrace{\code{1 + 2}}_{e_1}$ in
                 $\underbrace{\code{x + 3}}_{e_2}$} &
   \code{let $\underbrace{\code{(add 1 2)}}_{e_1}$
     $\underbrace{\cemph{\code{([x:exp] add x 3)}}}_{x.e_2}$}
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \pause
@@ -806,13 +807,14 @@ in Twelf.
 \item Recall important signatures (displaying implicit parameters):
 
 \begin{verbatim}
-of/let :  {T1:typ} {E2:exp -> exp} {T2:typ} {E1:exp}
-  ({x:exp} of x T1 -> of (E2 x) T2) -> of E1 T1
-    -> of (let E1 ([x:exp] E2 x)) T2.
+of/let :
+  {T1:typ} {E2:exp -> exp} {T2:typ} {E1:exp}
+    ({x:exp} of x T1 -> of (E2 x) T2) -> of E1 T1
+      -> of (let E1 ([x:exp] E2 x)) T2.
 
 of/nat : {N:nat} of (enat N) num.
 
-of/add :  {E2:exp} {E1:exp}
+of/add : {E2:exp} {E1:exp}
   of E2 num -> of E1 num -> of (add E1 E2) num.
 \end{verbatim}
 
@@ -915,7 +917,7 @@ $\qquad$ \texttt{\cemph{(\{x: exp\} of x T1 -> of (E2 x) T2)} ->} \\
 $\qquad$ \texttt{of (let E1 ([x] E2 x)) T2.}
 
 \pause
-\item Error message: \\
+\item Error message:
 \texttt{Occurrence of variable T1 in output (-) argument
 \cemph{not necessarily ground}}
 \end{itemize}
