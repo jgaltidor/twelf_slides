@@ -2,6 +2,8 @@
 
 LaTeX (Beamer) source for a slide presentation by John Altidor on the [Twelf](https://twelf.org/) proof assistant. It walks through the Twelf encoding of *MiniLang*, a small language of numbers and strings, and its proofs of type safety.
 
+**Download the PDF:** [twelf_slides.pdf](https://github.com/jgaltidor/twelf_slides/releases/latest/download/twelf_slides.pdf) (latest release; earlier versions are on the [Releases](https://github.com/jgaltidor/twelf_slides/releases) page).
+
 The slides accompany two other repositories:
 
 - [jgaltidor/typetheory_paper](https://github.com/jgaltidor/typetheory_paper): the tutorial paper that defines MiniLang and its type safety proofs
@@ -20,6 +22,20 @@ make            # builds twelf_slides.pdf
 make clean      # removes auxiliary build files
 make distclean  # also removes twelf_slides.pdf
 ```
+
+## Releasing
+
+The PDF is published as a GitHub Release asset, not committed (build outputs are gitignored). Releases are built with the pinned TeX Live image from the [typetheory_paper](https://github.com/jgaltidor/typetheory_paper) repository (`docker build -t typetheory-tex .` there). To publish a new version:
+
+```sh
+git tag -a v1.1 -m "Twelf tutorial slides v1.1"
+git push origin v1.1
+git clone --branch v1.1 . /tmp/twelf_slides-release     # build from a clean checkout of the tag
+docker run --rm -v /tmp/twelf_slides-release:/workdir typetheory-tex
+gh release create v1.1 /tmp/twelf_slides-release/twelf_slides.pdf --title "Twelf tutorial slides v1.1" --notes "..."
+```
+
+Keep the asset named `twelf_slides.pdf`: the README above and the [twelf_tutorial](https://github.com/jgaltidor/twelf_tutorial) README link to `releases/latest/download/twelf_slides.pdf`, which always serves the newest release.
 
 ## License
 
