@@ -58,7 +58,7 @@ git push origin v1.5
 
 If a check fails, no release is created. Fix the problem on `master`, then move the tag to the fixed commit and push it again (`git tag -d v1.5`, `git push origin :refs/tags/v1.5`, and tag again).
 
-Keep the asset named `twelf_slides.pdf`: the README above and the [twelf_tutorial](https://github.com/jgaltidor/twelf_tutorial) README link to `releases/latest/download/twelf_slides.pdf`, which always serves the newest release.
+Keep the asset named `twelf_slides.pdf`: the README above, the [typetheory_paper](https://github.com/jgaltidor/typetheory_paper) and [twelf_tutorial](https://github.com/jgaltidor/twelf_tutorial) READMEs, and [jgaltidor.github.io](https://jgaltidor.github.io) link to `releases/latest/download/twelf_slides.pdf`, which always serves the newest release. The [typetheory_paper](https://github.com/jgaltidor/typetheory_paper) bibliography cites a specific release instead (`twelf-slides` in `refs.bib`); update it when a release is worth citing.
 
 ## License
 

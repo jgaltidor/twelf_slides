@@ -42,4 +42,6 @@ Grammar check: LTeX+ (in the devcontainer) skips `alltt` code blocks and its arr
 
 ## Releasing
 
-The PDF is not committed (build outputs are gitignored); it's published as a GitHub Release asset. Pushing an annotated `v*` tag makes the `release` job in `.github/workflows/build.yml` build the tag in the pinned image, run the checks, and create the release (title from the tag's first line, notes from the rest); see the README's "Releasing" section. The asset must stay named `twelf_slides.pdf`, because this README and twelf_tutorial's README link to `releases/latest/download/twelf_slides.pdf`.
+The PDF is not committed (build outputs are gitignored); it's published as a GitHub Release asset. Pushing an annotated `v*` tag makes the `release` job in `.github/workflows/build.yml` build the tag in the pinned image, run the checks, and create the release (title from the tag's first line, notes from the rest); see the README's "Releasing" section. The asset must stay named `twelf_slides.pdf`, because links to `releases/latest/download/twelf_slides.pdf` follow the newest release on their own: this README, the typetheory_paper and twelf_tutorial READMEs, and `jgaltidor.github.io/index.html`.
+
+After a release, update the one reference pinned to a version: `typetheory_paper/refs.bib` (`twelf-slides`, a `releases/tag/vX.Y` URL; locally `~/Documents/mywork/repos/typetheory_paper`) and the version noted in typetheory_paper's CLAUDE.md. The released paper PDF cites the new deck only after a new paper release.
