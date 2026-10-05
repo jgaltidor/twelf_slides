@@ -19,9 +19,11 @@ make clean      # removes auxiliary files
 make distclean  # also removes twelf_slides.pdf
 ```
 
+Pinned toolchain: `docker build -t twelf-slides-tex .` then `docker run --rm -v "$PWD":/workdir twelf-slides-tex` (runs `make`). The `Dockerfile` pins the same TeX Live 2026 image, by digest, as typetheory_paper and the dissertation; `.devcontainer/` uses it too, and its LTeX+ settings list the deck's prose macros. Release PDFs are built with this image.
+
 To check a change, build and look in `twelf_slides.log` for warnings and `Overfull \hbox` / `Overfull \vbox` messages: the deck currently builds with no LaTeX or font warnings and no overfull boxes, so any such message is new (an overfull box means content spills off a slide). `\code` and the `\infer` rule labels wrap their text in `\text{...}` so they work inside math; keep size changes inside `\text` rather than using `\begin{small}` in math.
 
-Spell check, configured as in typetheory_paper: `docker run --rm -v "$PWD":/w -w /w node:22-slim npx -y cspell@8 "**/*.tex"`. Add legitimate new terms to `project-words.txt`.
+Spell check, configured as in typetheory_paper: `docker run --rm -v "$PWD":/w -w /w node:22-slim npx -y cspell@8 "**/*.tex"` must report 0 issues. Add legitimate new terms to `project-words.txt`.
 
 ## Structure
 
@@ -36,4 +38,4 @@ Spell check, configured as in typetheory_paper: `docker run --rm -v "$PWD":/w -w
 
 ## Releasing
 
-The PDF is not committed (build outputs are gitignored); it's published as a GitHub Release asset built in the pinned TeX Live Docker image from typetheory_paper. Follow the steps in the README's "Releasing" section. The asset must stay named `twelf_slides.pdf`, because this README and twelf_tutorial's README link to `releases/latest/download/twelf_slides.pdf`.
+The PDF is not committed (build outputs are gitignored); it's published as a GitHub Release asset built with this repo's pinned `Dockerfile` image. Follow the steps in the README's "Releasing" section. The asset must stay named `twelf_slides.pdf`, because this README and twelf_tutorial's README link to `releases/latest/download/twelf_slides.pdf`.

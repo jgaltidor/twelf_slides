@@ -1,0 +1,71 @@
+{
+  "name": "Twelf Slides (TeX Live 2026)",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workdir",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workdir,type=bind",
+  "mounts": [
+    "source=claude-code-config-${devcontainerId},target=/root/.claude,type=volume"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/root/.claude"
+  },
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/root/.local/bin"
+  },
+  "postCreateCommand": "curl -fsSL https://claude.ai/install.sh | bash",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "James-Yu.latex-workshop",
+        "streetsidesoftware.code-spell-checker",
+        "ltex-plus.vscode-ltex-plus",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "latex-workshop.latex.recipe.default": "make",
+        "latex-workshop.latex.recipes": [
+          {
+            "name": "make",
+            "tools": [
+              "make"
+            ]
+          }
+        ],
+        "latex-workshop.latex.tools": [
+          {
+            "name": "make",
+            "command": "make",
+            "args": []
+          }
+        ],
+        "latex-workshop.latex.autoBuild.run": "never",
+        "ltex.enabled": [
+          "latex"
+        ],
+        "ltex.language": "en-US",
+        "ltex.disabledRules": {
+          "en-US": [
+            "MORFOLOGIK_RULE_EN_US"
+          ]
+        },
+        "ltex.latex.commands": {
+          "\\code{}": "dummy",
+          "\\cemph{}": "dummy",
+          "\\gtrm{}": "dummy",
+          "\\utrm{}": "dummy",
+          "\\gtrmbig{}": "dummy",
+          "\\utrmbig{}": "dummy",
+          "\\cinfer[]{}{}": "ignore",
+          "\\cinfer{}{}": "ignore",
+          "\\ttinfer[]{}{}": "ignore",
+          "\\ttinfer{}{}": "ignore",
+          "\\texttt{}": "dummy",
+          "\\url{}": "dummy"
+        }
+      }
+    }
+  }
+}

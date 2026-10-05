@@ -23,15 +23,33 @@ make clean      # removes auxiliary build files
 make distclean  # also removes twelf_slides.pdf
 ```
 
+For a reproducible build, use the pinned toolchain in `Dockerfile` (a TeX Live 2026 snapshot, pinned by digest; the same image as typetheory_paper and the dissertation). The slides build with it with no LaTeX warnings:
+
+```sh
+docker build -t twelf-slides-tex .
+docker run --rm -v "$PWD":/workdir twelf-slides-tex          # runs make
+docker run --rm -v "$PWD":/workdir twelf-slides-tex make clean
+```
+
+`.devcontainer/` opens the same image in VS Code, with LaTeX Workshop set to build with `make`. It also installs Claude Code (the VS Code extension and the `claude` CLI), whose login and settings persist in a Docker volume.
+
+Spell checking uses `cspell.json` with the project word list `project-words.txt` (names, jargon, and LaTeX identifiers); add legitimate new terms there rather than ignoring warnings. Check from the command line with `npx cspell "**/*.tex"`, or in Docker:
+
+```sh
+docker run --rm -v "$PWD":/w -w /w node:22-slim npx -y cspell@8 "**/*.tex"
+```
+
+It should report 0 issues. In the devcontainer, Code Spell Checker reports spelling and LTeX+ checks grammar; LTeX+'s own spelling rule is disabled so there is a single source of spelling warnings.
+
 ## Releasing
 
-The PDF is published as a GitHub Release asset, not committed (build outputs are gitignored). Releases are built with the pinned TeX Live image from the [typetheory_paper](https://github.com/jgaltidor/typetheory_paper) repository (`docker build -t typetheory-tex .` there). To publish a new version:
+The PDF is published as a GitHub Release asset, not committed (build outputs are gitignored). Releases are built with the pinned toolchain in `Dockerfile` (`docker build -t twelf-slides-tex .`). To publish a new version:
 
 ```sh
 git tag -a v1.1 -m "Twelf tutorial slides v1.1"
 git push origin v1.1
 git clone --branch v1.1 . /tmp/twelf_slides-release     # build from a clean checkout of the tag
-docker run --rm -v /tmp/twelf_slides-release:/workdir typetheory-tex
+docker run --rm -v /tmp/twelf_slides-release:/workdir twelf-slides-tex
 gh release create v1.1 /tmp/twelf_slides-release/twelf_slides.pdf --title "Twelf tutorial slides v1.1" --notes "..."
 ```
 
