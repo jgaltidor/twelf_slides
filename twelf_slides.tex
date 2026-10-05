@@ -125,7 +125,7 @@ course slides)
 \item Implementation of the LF calculus \\
 (calculus for reasoning about deductive systems).
 
-\item Alternatives: Coq, Isabelle, Agda, etc.
+\item Alternatives: Rocq (formerly Coq), Isabelle, Agda, etc.
 
 \item Presenting Example Twelf Encoding of MiniLang.
 \end{itemize}
@@ -153,11 +153,11 @@ of it.
     \end{itemize}
   \end{itemize}
 \pause
-\item No choice operator
- (\cemph{$\epsilon x . P(x)$} proposed by David Hilbert).
+\item No choice or description operators
+ (e.g., Hilbert's choice operator \cemph{$\epsilon x . P(x)$}).
   \begin{itemize}
   \item $\ln(x) = u$ such that $x = e^u$.
-  \item Definition in Isabelle/HOL: \\
+  \item Definition in Isabelle/HOL with description operator \texttt{THE}: \\
     \texttt{definition ln ::\ real => real where} \\
     \texttt{ln x = \cemph{THE u}.\ exp u = x}.
   \end{itemize}
