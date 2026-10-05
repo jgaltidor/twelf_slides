@@ -42,4 +42,4 @@ Grammar check: LTeX+ (in the devcontainer) skips `alltt` code blocks and its arr
 
 ## Releasing
 
-The PDF is not committed (build outputs are gitignored); it's published as a GitHub Release asset built with this repo's pinned `Dockerfile` image. Follow the steps in the README's "Releasing" section. The asset must stay named `twelf_slides.pdf`, because this README and twelf_tutorial's README link to `releases/latest/download/twelf_slides.pdf`.
+The PDF is not committed (build outputs are gitignored); it's published as a GitHub Release asset. Pushing an annotated `v*` tag makes the `release` job in `.github/workflows/build.yml` build the tag in the pinned image, run the checks, and create the release (title from the tag's first line, notes from the rest); see the README's "Releasing" section. The asset must stay named `twelf_slides.pdf`, because this README and twelf_tutorial's README link to `releases/latest/download/twelf_slides.pdf`.

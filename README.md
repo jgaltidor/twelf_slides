@@ -45,15 +45,18 @@ GitHub Actions (`.github/workflows/build.yml`) builds the PDF in the pinned imag
 
 ## Releasing
 
-The PDF is published as a GitHub Release asset, not committed (build outputs are gitignored). Releases are built with the pinned toolchain in `Dockerfile` (`docker build -t twelf-slides-tex .`). To publish a new version:
+The PDF is published as a GitHub Release asset, not committed (build outputs are gitignored). Pushing a version tag publishes it: GitHub Actions builds the tag in the pinned image, runs the same checks as every push, and creates the release with the PDF attached. The tag must be annotated; its first line becomes the release title and any further lines become the release notes:
 
 ```sh
-git tag -a v1.1 -m "Twelf tutorial slides v1.1"
-git push origin v1.1
-git clone --branch v1.1 . /tmp/twelf_slides-release     # build from a clean checkout of the tag
-docker run --rm -v /tmp/twelf_slides-release:/workdir twelf-slides-tex
-gh release create v1.1 /tmp/twelf_slides-release/twelf_slides.pdf --title "Twelf tutorial slides v1.1" --notes "..."
+git tag -a v1.5 -F - <<'EOF'
+Twelf tutorial slides v1.5
+
+- What changed in this release.
+EOF
+git push origin v1.5
 ```
+
+If a check fails, no release is created. Fix the problem on `master`, then move the tag to the fixed commit and push it again (`git tag -d v1.5`, `git push origin :refs/tags/v1.5`, and tag again).
 
 Keep the asset named `twelf_slides.pdf`: the README above and the [twelf_tutorial](https://github.com/jgaltidor/twelf_tutorial) README link to `releases/latest/download/twelf_slides.pdf`, which always serves the newest release.
 
