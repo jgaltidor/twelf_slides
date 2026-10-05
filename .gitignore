@@ -10,3 +10,6 @@
 *.ps
 *.synctex.gz
 twelf_slides.pdf
+
+# macOS Finder metadata
+.DS_Store
