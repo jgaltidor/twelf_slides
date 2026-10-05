@@ -104,7 +104,7 @@
 
 
 % \newcommand{\code}[1]{\texttt{#1}}
-\newcommand{\code}[1]{\begin{small}\texttt{#1}\end{small}}
+\newcommand{\code}[1]{\text{\small\texttt{#1}}}
 
 % Emphasize code or math
 \newcommand{\cemph}[1]{\textcolor{red}{#1}}
@@ -122,7 +122,7 @@
 
 \let\OldInfer\infer
 \renewcommand{\infer}[3][]
-{\OldInfer[\begin{scriptsize}\texttt{#1}\end{scriptsize}]{#2}{#3}}
+{\OldInfer[\text{\scriptsize\texttt{#1}}]{#2}{#3}}
 
 \newcommand{\myinfer}[3]{\infer[#1]{\code{#3}}{\code{#2}}}
 \newcommand{\judge}[2]{\code{#1 \; #2}}

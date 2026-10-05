@@ -19,7 +19,7 @@ make clean      # removes auxiliary files
 make distclean  # also removes twelf_slides.pdf
 ```
 
-To check a change, build and look in `twelf_slides.log` for `Overfull \hbox` / `Overfull \vbox` warnings: the deck currently builds with no overfull boxes, so any new one means content spills off a slide.
+To check a change, build and look in `twelf_slides.log` for warnings and `Overfull \hbox` / `Overfull \vbox` messages: the deck currently builds with no LaTeX or font warnings and no overfull boxes, so any such message is new (an overfull box means content spills off a slide). `\code` and the `\infer` rule labels wrap their text in `\text{...}` so they work inside math; keep size changes inside `\text` rather than using `\begin{small}` in math.
 
 ## Structure
 
