@@ -27,4 +27,3 @@ subtyping
 tamefj
 Twelf
 Twelf's
-UPenn
