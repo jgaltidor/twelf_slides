@@ -51,16 +51,16 @@
 \begin{itemize}
 \item Proving language properties is important.
 	\begin{itemize}
-  \item Rule out certain errors (e.g. assuming
+  \item Rule out certain errors (e.g., assuming
   wrong number of bytes for an object).
   \item Well-defined behavior throughout execution
-  (e.g. no segmentation fault or accessing wrong
+  (e.g., no segmentation fault or accessing wrong
   parts of memory).
   \item Publishing.
   \end{itemize}
 
 \pause
-\item But proofs are long, error prone, and difficult
+\item But proofs are long, error-prone, and difficult
 to validate.
 	 \begin{itemize}
 	 \item \emph{+20 pages} is common for a type safety proof.
@@ -105,7 +105,7 @@ are given.
 \item \emph{Proof assistants} are a hybrid of both.
   \begin{itemize}
   \item ``Hard steps'' of proofs (the ones requiring deep insight)
-  are provided by human.
+  are provided by a human.
   \item ``Easy steps'' of proofs can be filled in automatically.
   \end{itemize}
 \item (above bullet points taken from UPenn's Software Foundations
@@ -156,7 +156,7 @@ of it.
 \item No choice operator
  (\cemph{$\epsilon x . P(x)$} proposed by David Hilbert).
   \begin{itemize}
-  \item $ln(x) = u$ such that $x = e^u$.
+  \item $\ln(x) = u$ such that $x = e^u$.
   \item Definition in Isabelle/HOL: \\
     \texttt{definition ln ::\ real => real where} \\
     \texttt{ln x = \cemph{THE u}.\ exp u = x}.
@@ -214,7 +214,7 @@ Three \emph{levels} of objects in Twelf:
   \end{itemize}
 
 \pause
-\item The kind \code{\cemph{type}} is a pre-defined kind in Twelf: \\
+\item The kind \code{\cemph{type}} is a predefined kind in Twelf: \\
 the kind of ordinary types.
 \end{itemize}
 \end{frame}
@@ -319,7 +319,7 @@ syntactic categories.
 
 \section{Higher-Order Abstract Syntax}
 
-\begin{frame}{Terms w/ variables using Higher-Order Abstract Syntax (HOAS)}
+\begin{frame}{Terms w/ Variables Using Higher-Order Abstract Syntax (HOAS)}
 \begin{itemize}
 \item Abstract syntax from earlier slides is
 \emph{first-order abstract syntax (FOAS)}.
@@ -345,7 +345,7 @@ syntactic categories.
 \end{frame}
 
 
-\begin{frame}{HOAS encoding of \texttt{let} expression}
+\begin{frame}{HOAS Encoding of \texttt{let} Expression}
 \begin{itemize}
 \item First, \code{let} expression in FOAS:
 \[ \code{let($x$; $e_1$; $e_2$)} \]
@@ -358,7 +358,7 @@ syntactic categories.
 \pause
 \item HOAS lets us know where variables are being bound.
 \[ \code{let(3; \cemph{$x$.+($x$; 4)})} \equiv \code{let(3; \cemph{$y$.+($y$; 4)})}\]
-\item Two preceding terms above are \emph{alpha-equivalent}.
+\item The two terms above are \emph{alpha-equivalent}.
 \end{itemize}
 \end{frame}
 
@@ -490,10 +490,10 @@ $\cemph{S \rightarrow T}$:
   \end{itemize}
 
 \pause
-\item If $x \notin fv(T)$, then $\Pi x:S.T \equiv S \rightarrow T$.
+\item If $x \notin \mathit{fv}(T)$, then $\Pi x:S.T \equiv S \rightarrow T$.
 
 \pause
-\item If $x \in fv(T)$, then $\Pi x:S.T$ returns term of a
+\item If $x \in \mathit{fv}(T)$, then $\Pi x:S.T$ returns term of a
 dependent type.
 
 \pause
@@ -514,8 +514,8 @@ dependent type.
 \cemph{\texttt{of/nat : \{N:nat\} of (enat N) num.}}
 \item Twelf Convention:
   \begin{itemize}
-  \item Constants start with lower-case letters.
-  \item Variables/parameters start with upper-case letters.
+  \item Constants start with lowercase letters.
+  \item Variables/parameters start with uppercase letters.
   \end{itemize}
 
 \pause
@@ -557,7 +557,7 @@ $\qquad$ \texttt{<- \cemph{of E2 num}.}
 \end{frame}
 
 
-\begin{frame}{Implicit and explicit parameters}
+\begin{frame}{Implicit and Explicit Parameters}
 \begin{itemize}
 \item \texttt{of/nat: \{\cemph{N:nat}\} of (enat \cemph{N}) num.}
 
@@ -637,7 +637,7 @@ that \texttt{\cemph{z}} is the implicit parameter that
   \end{itemize}
 
 \item Helps Twelf avoid logical inconsistency \\
-(i.e. proving false/uninhabited type).
+(i.e., proving false/uninhabited type).
 
 \item False implies any proposition (including false ones).
 
@@ -652,7 +652,7 @@ proofs by contradiction.
 % Proposition, \forall x. P(x), can be thought of as the
 % lambda function, \lambda x. P(x).
 % Maybe, in some "extra slides", add a Table mapping
-% propositions to types (e.g. and maps to product type)
+% propositions to types (e.g., and maps to product type)
 % such and "and" type requires polymorphism being able to
 % quantify over types.
 % and inductive type definition (type family) in Coq:
@@ -937,10 +937,10 @@ $\qquad$ \texttt{of (let E1 ([x] E2 x)) T2.}
 
 \section{Ground Terms}
 
-\begin{frame}{Universally-Quantified Inputs}
+\begin{frame}{Universally Quantified Inputs}
 \begin{itemize}
 \item Terms in \emph{input positions} of
-\emph{return type} are \emph{universally-quantified}
+\emph{return type} are \emph{universally quantified}
 inputs to function.
 
 \item
@@ -1094,7 +1094,7 @@ algorithm determines no proof exists.
 
 \begin{frame}[containsverbatim]{Termination}
 \begin{itemize}
-\item \texttt{\cemph{\%terminates}} checks a program
+\item \texttt{\cemph{\%terminates}} checks that a program
 succeeds or fails in a finite number of steps given
 ground inputs.
 \item Modes with termination ensure decidable definitions.
@@ -1127,7 +1127,7 @@ applicable rule.
 \item Syntax of input term tells us which rule to use.
 \\ (or if no rule applies)
 \item Each true proposition of a syntax-directed
-predicate has exactly one unique derivation.
+predicate has exactly one derivation.
 \item Only one way to derive
 \texttt{\cemph{+(5; 3) : num}}.
 \[
@@ -1145,7 +1145,7 @@ syntax-directed predicates.
 \begin{frame}[containsverbatim]{Checking Syntax-Directed}
 \begin{itemize}
 \item Check that rules of relation/type family
-(e.g. \texttt{subtype}) are syntax-directed by passing relation
+(e.g., \texttt{subtype}) are syntax-directed by passing relation
 to \texttt{\cemph{\%unique}} declaration.
 
 \item \texttt{\cemph{\%unique}} checks if output arguments
@@ -1175,7 +1175,7 @@ subtype/trans:
 
 \begin{frame}{Automatic Proof Derivation}
 \begin{itemize}
-\item Twelf can derive (search) for proofs:
+\item Twelf can derive (search for) proofs:
 
 \item
 \texttt{\cemph{\%solve D1} :} \\
@@ -1296,7 +1296,7 @@ is a \emph{total relation} on all \emph{possible inputs}.
 \end{frame}
 
 
-\begin{frame}{Preservation Proof - Addition Case 2 - Informal}
+\begin{frame}{Preservation Proof -- Addition Case 2 -- Informal}
 Case: (\texttt{T.4}, \texttt{D.1})
 \[
 \cinfer[T.4]{+($e_1$; $e_2$): num}
@@ -1542,7 +1542,7 @@ that can arise from rules.
 
 \begin{frame}{Blocks}
 \begin{itemize}
-\item \emph{Blocks}: Patterns describing fragment of contexts.
+\item \emph{Blocks}: Patterns describing fragments of contexts.
 \item Update addressing previous error:
 
 \texttt{add : exp -> exp -> exp.} \\
@@ -1621,7 +1621,7 @@ Ask Twelf to \emph{derive} proof for all cases of theorem: \\
 \texttt{\cemph{\%prove 3 E-T (preservation E-T \_ \_).}}
 	\begin{itemize}
 	\item by structural induction on typing derivation \texttt{E-T}
-	\item \texttt{3} is bound on the size of proof terms.
+	\item \texttt{3} is the bound on the size of proof terms.
 	\end{itemize}
 
 \pause
@@ -1662,7 +1662,7 @@ less syntactic sugar \\
 (hypothetical judgments).
 	\begin{itemize}
 	\item Do not need to define context of judgments
-	and related lemmas (e.g. weakening) (sometimes).
+	and related lemmas (e.g., weakening) (sometimes).
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -1672,7 +1672,7 @@ less syntactic sugar \\
 \begin{itemize}
 \item Language sometimes too simple
 	\begin{itemize}
-		\item Missing support for frequent use-cases \\
+		\item Missing support for frequent use cases \\
 		(e.g., nested case analysis, no case-split construct).
 	\end{itemize}
 \item Less verbosity can lead to cryptic code: \\
@@ -1692,7 +1692,7 @@ Intent and meaning of code not clear without significant background:
 \end{alltt}
 	\end{itemize}
 \item Error messages could be improved \\
-(e.g. missing cases messages).
+(e.g., missing cases messages).
 	\begin{itemize}
 	\item Type annotations of function applications and defined names desired.
 	\end{itemize}
@@ -1706,13 +1706,13 @@ Intent and meaning of code not clear without significant background:
 just reading proof trees.
 
 \item Lack of automation: Many proofs require manual specification
-(e.g. proofs requiring nested case analysis).
+(e.g., proofs requiring nested case analysis).
 
 \item No libraries.
 	\begin{itemize}
 	\item No standard library
 	\item No import statements -- All code must be included \\
-	(repeat definition of \texttt{nat} for every project using them)
+	(repeat definition of \texttt{nat} for every project using it)
 	\end{itemize}
 
 \item No polymorphism
