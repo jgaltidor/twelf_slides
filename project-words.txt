@@ -3,7 +3,6 @@ alltt
 Altidor
 Beamer
 beamerthemesplit
-Bijective
 containsverbatim
 Desugared
 Drossopoulou
@@ -12,14 +11,11 @@ enat
 estr
 FOAS
 HOAS
-Injective
 jgaltidor
 keepaspectratio
-lineno
 llrl
 lmodern
 mediumelf
-multirow
 mymacros
 numsubtype
 pdfkeywords
@@ -28,7 +24,6 @@ Predicativity
 Rocq
 subexpressions
 subtyping
-Surjective
 tamefj
 Twelf
 Twelf's

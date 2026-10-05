@@ -1,7 +1,5 @@
 \documentclass{beamer}
-% Make sure to run this file with PDFLatex.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Do not change the next few lines
+% Build with make (see Makefile).
 \usepackage{beamerthemesplit}
 \usepackage[english]{babel}
 
@@ -16,16 +14,10 @@
 % Make item symbol square
 \setbeamertemplate{itemize item}[square]
 
-
 % Input my macros
 \input{mymacros.tex}
 
 \renewcommand{\emph}[1]{\textbf{\textit{#1}}}
-
-% Now Start entering your information.
-%\title{Taming the Wildcards: \\
-% Combining Definition- and Use-Site Variance}
-% \title{Taming the Wildcards}
 
 \title[Twelf Tutorial\hspace{2em}\insertframenumber/
 \inserttotalframenumber]{Twelf Tutorial}
@@ -34,7 +26,6 @@
 
 \author[John Altidor]{\textbf{John Altidor}}
 \date{}
-% \institute{Logic Seminar}
 
 % PDF document properties; Beamer sets the title and author itself
 \hypersetup{

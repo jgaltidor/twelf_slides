@@ -1,109 +1,24 @@
-\usepackage{hyperref} % Adds links to references
 \usepackage{graphicx}
 
-% Probably want to use AMS macros
+% AMS macros (\text, symbols)
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{amsfonts}
 
 % Packages for formatting code segments
 \usepackage{verbatim}
-\usepackage{lineno}
 \usepackage{alltt}
-
-\usepackage{listings}
-
-% For using color
-%\usepackage[usenames]{color}
-
-%\usepackage[svgnames]{xcolor}
-
-\usepackage{multirow}
 
 % Packages for proof trees
 \usepackage{proof}
-% \usepackage{mathpartir}
 
-
-\usepackage{algorithm}
-\usepackage{algorithmic}
-
-% Redefine some algorithmic commands
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\renewcommand{\algorithmiccomment}[1]{// #1}
-
-\newcommand{\union}{\cup}
-\newcommand{\intersect}{\cap}
-\newcommand{\assign}{\leftarrow}
-
-% Theorem and Lemmas
-\newtheorem{thm}{Theorem}
-\newtheorem{lem}{Lemma}
-
-% Macros for defining mathematical functions
-% Total Function
-\newcommand{\func}[3]{#1 : #2 \rightarrow #3}
-% Partial Function
-\newcommand{\pfunc}[3]{#1 : #2 \dashrightarrow #3}
-% Total Function w/ text on top of arrow
-\newcommand{\funct}[4]{#1 : #2 \xrightarrow{#4} #3}
-% Total Function w/ text on top and bottom of arrow
-\newcommand{\functb}[5]{#1 : #2 \xrightarrow[#5]{#4} #3}
-% Injective Function
-\newcommand{\funcinj}[3]{\funct{#1}{#2}{#3}{1-1}}
-% Surjective Function
-\newcommand{\funcsur}[3]{\funct{#1}{#2}{#3}{onto}}
-% Bijective Function
-\newcommand{\funcbi}[3]{\functb{#1}{#2}{#3}{1-1}{onto}}
-
-% Adding and removing line space
+% Adding line space
 \newcommand{\linespace}{\vspace{\baselineskip}}
-\newcommand{\minuslinespace}{\vspace{-\baselineskip}}
-% Stop indenting of paragraphs
-\newcommand{\stopParagraphIdent}{\setlength{\parindent}{0pt}}
-
-%% We have some bulleted lists with multi-paragraph items. These are a
-%% bit wasteful of space, and a bit hard to read because of lack of
-%% paragraph indentation, when put in an "itemize"
-%% environment. "bullets" is an alternative that keeps the paragraphs
-%% looking more like paragraphs. 
-\newenvironment{bullets}%
-{\begin{list}{$\bullet$}{\setlength{\leftmargin}{1.5ex}%
-\setlength{\itemindent}{.5ex}}
-\setlength{\parindent}{2ex}
-}%
-{\end{list}}
-
-\newcommand{\subsectionheader}[1]{\textbf{#1:}}
-
-% Macros for creating code segments
-%\newenvironment{code}{\vspace{-7pt}\begin{small}\linenumbers[1]
-%\linenumbersep=6pt}{\endlinenumbers\end{small}\vspace{-7pt}}
-%\newenvironment{nolinecode}{\vspace{-0.04in}\begin{small}}{\end{small}\vspace{-0.04in}}
-
-%\newenvironment{code}{\begin{small}\begin}{}
-
-%\newcommand{\sv}[1]{\begin{small}\texttt{#1}\end{small}}
-%\newcommand{\sv}[1]{\texttt{#1}}
-\newcommand{\curly}[1]{\char123{}#1\char125{}}
-% Denote block of code w/ ... abbreviating code in the block
-% \newcommand{\block}{\sv{\curly{ \ldots{} }}}
-% \newcommand{\block}{\sv{\{\ldots\}}}
 
 % context-free grammars
 \newcommand{\bnfdef}{\mathrel{\colon\colon\mathord{=}}}
 \newcommand{\bnfalt}{\mathrel{\mid}}
-\newcommand{\bnfas}{\bnfdef}
 
-% syntactic substitution of #1 for #2 in #3
-\newcommand{\subst}[3]{[#1/#2]#3}
-
-\newcommand{\startsymbol}{\ensuremath{\Rightarrow}}
-
-
-% \newcommand{\code}[1]{\texttt{#1}}
+% Small typewriter text for inline Twelf code; \text makes it work in math
 \newcommand{\code}[1]{\text{\small\texttt{#1}}}
 
 % Emphasize code or math
@@ -124,22 +39,6 @@
 \renewcommand{\infer}[3][]
 {\OldInfer[\text{\scriptsize\texttt{#1}}]{#2}{#3}}
 
-\newcommand{\myinfer}[3]{\infer[#1]{\code{#3}}{\code{#2}}}
-\newcommand{\judge}[2]{\code{#1 \; #2}}
-
-\newcommand{\caseitem}[1]{\item[\textit{Case:}] Rule #1 \\}
-\newcommand{\trans}[2]{#1 \rightarrow #2}
-\newcommand{\transs}[2]{#1 \rightarrow^* #2}
 \newcommand{\cinfer}[3][]{\infer[#1]{\code{#2}}{#3}}
 \newcommand{\ttinfer}[3][]{\infer[#1]{\texttt{#2}}{#3}}
-\newcommand{\spcinfer}[3][]{\hspace{-2cm}\infer[#1]{\vspace{\baselineskip}#2}{#3}\hspace{-2cm}}
-%\newcommand{\spcinfer}[3][]{\infer*{\vspace{\baselineskip}}{\hspace{-2cm}\infer[#1]{#2}{#3}}\hspace{-2cm}}
 \newcommand{\stepto}{\mapsto}
-\newcommand{\stepsto}{\mapsto^*}
-\newcommand{\aeq}{=_{\alpha}}
-% \renewcommand{\mysubst}[3]{[#1/#2]#3}
-
-\newcommand{\myitem}{\minuslinespace \item}
-
-\newcommand{\subequiv}{\subseteq_{\equiv}}
-\newcommand{\subtype}{<:}
