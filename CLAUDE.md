@@ -21,6 +21,8 @@ make distclean  # also removes twelf_slides.pdf
 
 To check a change, build and look in `twelf_slides.log` for warnings and `Overfull \hbox` / `Overfull \vbox` messages: the deck currently builds with no LaTeX or font warnings and no overfull boxes, so any such message is new (an overfull box means content spills off a slide). `\code` and the `\infer` rule labels wrap their text in `\text{...}` so they work inside math; keep size changes inside `\text` rather than using `\begin{small}` in math.
 
+Spell check, configured as in typetheory_paper: `docker run --rm -v "$PWD":/w -w /w node:22-slim npx -y cspell@8 "**/*.tex"`. Add legitimate new terms to `project-words.txt`.
+
 ## Structure
 
 - `twelf_slides.tex`: the whole deck. Each `\section` is a topic; slides are `frame` environments.
