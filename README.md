@@ -41,6 +41,8 @@ docker run --rm -v "$PWD":/w -w /w node:22-slim npx -y cspell@8 "**/*.tex"
 
 It should report 0 issues. In the devcontainer, Code Spell Checker reports spelling and LTeX+ checks grammar; LTeX+'s own spelling rule is disabled so there is a single source of spelling warnings.
 
+GitHub Actions (`.github/workflows/build.yml`) builds the PDF in the pinned image on every push and pull request, and fails if the build reports any LaTeX warning, an overfull or underfull box, or a spelling issue. The built PDF is attached to each run as an artifact.
+
 ## Releasing
 
 The PDF is published as a GitHub Release asset, not committed (build outputs are gitignored). Releases are built with the pinned toolchain in `Dockerfile` (`docker build -t twelf-slides-tex .`). To publish a new version:

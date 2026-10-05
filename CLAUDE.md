@@ -25,6 +25,8 @@ To check a change, build and look in `twelf_slides.log` for warnings and `Overfu
 
 Spell check, configured as in typetheory_paper: `docker run --rm -v "$PWD":/w -w /w node:22-slim npx -y cspell@8 "**/*.tex"` must report 0 issues. Add legitimate new terms to `project-words.txt`.
 
+CI: `.github/workflows/build.yml` runs the Docker build, then fails if `twelf_slides.log` has a warning or an overfull or underfull box, or if cspell reports an issue. Keep the build clean, or the push turns red; if a new message is genuinely expected, change the check in the workflow and the note here together.
+
 Grammar check: LTeX+ (in the devcontainer) skips `alltt` code blocks and its arrow rule. It still reports 7 known false positives, mostly a frame title read together with the first bullet ("Blocks: Blocks") and the deliberate repetition of "Holes" on the Higher-Order Terms slide; anything else it reports is new.
 
 ## Structure
