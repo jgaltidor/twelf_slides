@@ -48,7 +48,8 @@
         "ltex.language": "en-US",
         "ltex.disabledRules": {
           "en-US": [
-            "MORFOLOGIK_RULE_EN_US"
+            "MORFOLOGIK_RULE_EN_US",
+            "ARROWS"
           ]
         },
         "ltex.latex.commands": {
@@ -64,6 +65,9 @@
           "\\ttinfer{}{}": "ignore",
           "\\texttt{}": "dummy",
           "\\url{}": "dummy"
+        },
+        "ltex.latex.environments": {
+          "alltt": "ignore"
         }
       }
     }
